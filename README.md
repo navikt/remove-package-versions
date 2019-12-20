@@ -7,12 +7,15 @@ This action will allow you to remove older versions of all GitHub Packages in a 
 To use the action, simply refer to it in your workflow:
 
 ```yaml
+name: Remove package versions
 on: push
 jobs:
   remove-package-versions:
     runs-on: ubuntu-latest
     steps:
-    - uses: navikt/remove-package-versions@master
+    - name: Remove package versions
+      id: remove-package-versions
+      uses: navikt/remove-package-versions@master
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```
@@ -53,4 +56,4 @@ Keep in mind that if you use date-based versions with `.` as a separator, for in
 
 ## Output
 
-The action outputs a JSON-encoded list of removed package versions, prefixed with the owner and the repository name.
+The action outputs a JSON-encoded list of removed package versions prefixed with the owner and the repository name. The name of the output is `removed-package-versions`. Using the `id` from the workflow example above, you can refer to the output using `${{ steps.remove-package.versions.outputs.removed-package-versions }}`.
