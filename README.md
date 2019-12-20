@@ -56,4 +56,4 @@ Keep in mind that if you use date-based versions with `.` as a separator, for in
 
 ## Output
 
-The action outputs a JSON-encoded list of removed package versions prefixed with the owner and the repository name. The name of the output is `removed-package-versions`. Using the `id` from the workflow example above, you can refer to the output using `${{ steps.remove-package.versions.outputs.removed-package-versions }}`.
+The action outputs a JSON-encoded list of removed package versions prefixed with the owner and the repository name. The name of the output is `removed-package-versions`. Using the `id` from the workflow example above, you can refer to the output using `${{ steps.remove-package-versions.outputs.removed-package-versions }}`.
