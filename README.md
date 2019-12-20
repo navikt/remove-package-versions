@@ -7,7 +7,7 @@ This action will allow you to remove older versions of all GitHub Packages in a 
 To use the action, simply refer to it in your workflow:
 
 ```yaml
-on: [package]
+on: push
 jobs:
   remove-package-versions:
     runs-on: ubuntu-latest
@@ -17,7 +17,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```
 
-The above example will trigger the action whenever the `package` event is triggered. All events that can be used are found in the [GitHub documentation](https://developer.github.com/webhooks/).
+The above example will trigger the action whenever the `push` event is triggered. All events that can be used are found in the [GitHub documentation](https://help.github.com/en/actions/automating-your-workflow-with-github-actions/events-that-trigger-workflows).
 
 ## Environment variables
 
