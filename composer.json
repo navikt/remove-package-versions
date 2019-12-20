@@ -1,0 +1,20 @@
+{
+    "name": "navikt/remove-package-versions",
+    "description": "Clean up older versions of private packages in GitHub Packages",
+    "homepage": "https://github.com/navikt/remove-package-versions",
+    "readme": "README.md",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Christer Edvartsen"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/navikt/remove-package-versions/issues",
+        "source": "https://github.com/navikt/remove-package-versions",
+        "docs": "https://github.com/navikt/remove-package-versions"
+    },
+    "require": {
+        "guzzlehttp/guzzle": "^6.5"
+    }
+}
