@@ -20,6 +20,24 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```
 
+If you want to run the action periodically instead, use a scheduled action:
+
+```yaml
+name: Remove package versions
+on:
+  schedule:
+    - cron:  '0 8 * * *'
+jobs:
+  remove-package-versions:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Remove package versions
+        id: remove-package-versions
+        uses: navikt/remove-package-versions@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+```
+
 The above example will trigger the action whenever the `push` event is triggered. All events that can be used are found in the [GitHub documentation](https://help.github.com/en/actions/automating-your-workflow-with-github-actions/events-that-trigger-workflows).
 
 **Note:** The underlying HTTP client does not currently do any pagination which means it has a hard limit on 100 packages, and 100 versions per package when fetching the packages / versions to determine what to remove.
