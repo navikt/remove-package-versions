@@ -151,7 +151,7 @@ foreach ($packageNodes as $packageNode) {
         }
 
         if (!$removeSemver && isSemanticVersion($packageVersion)) {
-            debug(sprintf('[%s] [%s] Semantic versions will not be removed unless removeSemver is set to true', $repoNameWithOwner, $packageNameWithVersion));
+            debug(sprintf('[%s] [%s] Semantic versions will not be removed unless remove-semver is set to true', $repoNameWithOwner, $packageNameWithVersion));
             continue;
         }
 

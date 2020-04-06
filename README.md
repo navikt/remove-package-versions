@@ -64,11 +64,11 @@ This environment variable is automatically available inside a workflow run, and 
 
 The action supports the following parameters:
 
-### `keepVersions`
+### `keep-versions`
 
 Number of versions to keep per package. Defaults to `5`.
 
-### `removeSemver`
+### `remove-semver`
 
 Whether or not to remove [semantic versions](https://semver.org/). Defaults to `false`.
 
