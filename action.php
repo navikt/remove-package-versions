@@ -50,6 +50,7 @@ function isSemanticVersion(string $version) : bool {
 $token             = (string) getenv('GITHUB_TOKEN');
 $keepVersions      = (int) getenv('INPUT_KEEP_VERSIONS') ?: 5;
 $removeSemver      = 'true' === getenv('INPUT_REMOVE_SEMVER');
+$removePublic      = 'true' === getenv('INPUT_REMOVE_PUBLIC');
 $repoNameWithOwner = (string) getenv('GITHUB_REPOSITORY');
 $clientId          = 'navikt/remove-package-versions';
 
@@ -116,8 +117,8 @@ $repository = json_decode($response->getBody()->getContents(), true)['data']['re
 
 if (null === $repository) {
     fail(sprintf('[%s] Repository not found', $repoNameWithOwner));
-} else if (!$repository['isPrivate']) {
-    fail(sprintf('[%s] Repository is public, unable to remove package versions', $repoNameWithOwner));
+} else if (!$repository['isPrivate'] && !removePublic) {
+    fail(sprintf('[%s] Repository is public, unable to remove package versions unless remove-public is set to true', $repoNameWithOwner));
 }
 
 $packageNodes = $repository['packages']['nodes'] ?? [];

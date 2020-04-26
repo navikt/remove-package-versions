@@ -72,6 +72,10 @@ Number of versions to keep per package. Defaults to `5`.
 
 Whether or not to remove [semantic versions](https://semver.org/). Defaults to `false`.
 
+### `remove-public`
+
+Whether or not to remove packages from public repos. Defaults to `false`.
+
 Keep in mind that if you use date-based versions with `.` as a separator, for instance `yyyy.mm.dd-<sha>`, some dates are valid semantic versions, while others aren't. The ones who aren't valid semantic versions are the ones who have the month or day parts of the date starting with `0`, for instance `2019.12.01`. When using date-based versions it's advisable to use `-` as a separator instead of `.`.
 
 ## Output

@@ -10,6 +10,10 @@ inputs:
     description: Whether or not to remove semver versions
     required: true
     default: "false"
+  remove-public:
+    description: Whether or not to remove packages from public repos
+    required: true
+    default: "false"
 outputs:
   removed-package-versions:
     description: A list of package versions that was removed
