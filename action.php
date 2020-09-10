@@ -48,8 +48,8 @@ function isSemanticVersion(string $version) : bool {
 }
 
 $token             = (string) getenv('GITHUB_TOKEN');
-$keepVersions      = (int) getenv('INPUT_KEEP_VERSIONS') ?: 5;
-$removeSemver      = 'true' === getenv('INPUT_REMOVE_SEMVER');
+$keepVersions      = (int) getenv('INPUT_KEEP-VERSIONS') ?: 5;
+$removeSemver      = 'true' === getenv('INPUT_REMOVE-SEMVER');
 $repoNameWithOwner = (string) getenv('GITHUB_REPOSITORY');
 $clientId          = 'navikt/remove-package-versions';
 
