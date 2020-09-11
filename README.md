@@ -64,11 +64,11 @@ This environment variable is automatically available inside a workflow run, and 
 
 The action supports the following parameters:
 
-### `keep-versions`
+### `keep_versions`
 
 Number of versions to keep per package. Defaults to `5`.
 
-### `remove-semver`
+### `remove_semver`
 
 Whether or not to remove [semantic versions](https://semver.org/). Defaults to `false`.
 
@@ -76,4 +76,4 @@ Keep in mind that if you use date-based versions with `.` as a separator, for in
 
 ## Output
 
-The action outputs a JSON-encoded list of removed package versions prefixed with the owner and the repository name. The name of the output is `removed-package-versions`. Using the `id` from the workflow example above, you can refer to the output using `${{ steps.remove-package-versions.outputs.removed-package-versions }}`.
+The action outputs a JSON-encoded list of removed package versions prefixed with the owner and the repository name. The name of the output is `removed_package_versions`. Using the `id` from the workflow example above, you can refer to the output using `${{ steps.remove-package-versions.outputs.removed_package_versions }}`.

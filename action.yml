@@ -2,16 +2,16 @@ name: Remove package versions from GitHub Packages
 author: Christer Edvartsen
 description: Clean up older versions of private packages in GitHub Packages
 inputs:
-  keep-versions:
+  keep_versions:
     description: Number of versions to keep
     required: true
     default: "5"
-  remove-semver:
+  remove_semver:
     description: Whether or not to remove semver versions
     required: true
     default: "false"
 outputs:
-  removed-package-versions:
+  removed_package_versions:
     description: A list of package versions that was removed
 runs:
   using: docker

@@ -174,6 +174,6 @@ foreach ($packageNodes as $packageNode) {
     }
 }
 
-echo sprintf('::set-output name=removed-package-versions::%s', json_encode(array_map(function(string $version) use ($repoNameWithOwner) : string {
+echo sprintf('::set-output name=removed_package_versions::%s', json_encode(array_map(function(string $version) use ($repoNameWithOwner) : string {
     return sprintf('%s/%s', $repoNameWithOwner, $version);
 }, $removedPackages))) . PHP_EOL;
