@@ -15,7 +15,7 @@ jobs:
     steps:
     - name: Remove package versions
       id: remove-package-versions
-      uses: navikt/remove-package-versions@master
+      uses: navikt/remove-package-versions@main
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```
@@ -33,7 +33,7 @@ jobs:
     steps:
       - name: Remove package versions
         id: remove-package-versions
-        uses: navikt/remove-package-versions@master
+        uses: navikt/remove-package-versions@main
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```
