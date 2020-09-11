@@ -48,8 +48,8 @@ function isSemanticVersion(string $version) : bool {
 }
 
 $token             = (string) getenv('GITHUB_TOKEN');
-$keepVersions      = (int) getenv('INPUT_KEEP-VERSIONS') ?: 5;
-$removeSemver      = 'true' === getenv('INPUT_REMOVE-SEMVER');
+$keepVersions      = (int) getenv('INPUT_KEEP_VERSIONS') ?: 5;
+$removeSemver      = 'true' === getenv('INPUT_REMOVE_SEMVER');
 $repoNameWithOwner = (string) getenv('GITHUB_REPOSITORY');
 $clientId          = 'navikt/remove-package-versions';
 
@@ -174,6 +174,6 @@ foreach ($packageNodes as $packageNode) {
     }
 }
 
-echo sprintf('::set-output name=removed-package-versions::%s', json_encode(array_map(function(string $version) use ($repoNameWithOwner) : string {
+echo sprintf('::set-output name=removed_package_versions::%s', json_encode(array_map(function(string $version) use ($repoNameWithOwner) : string {
     return sprintf('%s/%s', $repoNameWithOwner, $version);
 }, $removedPackages))) . PHP_EOL;
