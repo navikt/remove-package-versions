@@ -150,6 +150,11 @@ foreach ($packageNodes as $packageNode) {
             continue;
         }
 
+        if ('latest' === $packageVersion) {
+            // Do not remove 'latest' version of package
+            continue;
+        }
+
         if (!$removeSemver && isSemanticVersion($packageVersion)) {
             debug(sprintf('[%s] [%s] Semantic versions will not be removed unless remove-semver is set to true', $repoNameWithOwner, $packageNameWithVersion));
             continue;
