@@ -150,7 +150,7 @@ foreach ($packageNodes as $packageNode) {
             continue;
         }
 
-        if ('latest' == $packageVersion) {
+        if ('latest' === $packageVersion) {
             // Do not remove 'latest' version of package
             continue;
         }
