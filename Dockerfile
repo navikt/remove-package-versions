@@ -1,4 +1,4 @@
-FROM php:7.3-cli-alpine AS build
+FROM php:7.4-cli-alpine AS build
 WORKDIR /app
 COPY composer.json composer.lock action.php ./
 RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" && \
@@ -13,10 +13,10 @@ RUN addgroup -S cleanup && \
     adduser -S cleanup -G cleanup && \
     chown -R cleanup /app
 USER cleanup
-RUN php composer.phar install -o --no-dev --no-plugins --no-scripts --no-ansi && \
+RUN php composer.phar install -o --no-dev && \
     rm composer.phar
 
-FROM php:7.3-cli-alpine
+FROM php:7.4-cli-alpine
 LABEL "repository"="https://github.com/navikt/remove-package-versions"
 LABEL "maintainer"="@christeredvartsen"
 COPY --from=build /app /app

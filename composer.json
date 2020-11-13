@@ -15,6 +15,6 @@
         "docs": "https://github.com/navikt/remove-package-versions"
     },
     "require": {
-        "guzzlehttp/guzzle": "^6.5"
+        "guzzlehttp/guzzle": "^7.2"
     }
 }
