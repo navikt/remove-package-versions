@@ -1,8 +1,20 @@
 <?php declare(strict_types=1);
-use GuzzleHttp\Client;
-use GuzzleHttp\Exception\ClientException;
+use GuzzleHttp\{
+    Client,
+    Exception\ClientException,
+};
 
 require 'vendor/autoload.php';
+
+/**
+ * Get an env var as a string
+ *
+ * @param string $name
+ * @return string
+ */
+function env(string $name) : string {
+    return trim((string) getenv($name));
+}
 
 /**
  * Fail the script with a message
@@ -47,10 +59,10 @@ function isSemanticVersion(string $version) : bool {
     return 0 < preg_match('/^(?P<major>0|[1-9]\d*)\.(?P<minor>0|[1-9]\d*)\.(?P<patch>0|[1-9]\d*)(?:-(?P<prerelease>(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+(?P<buildmetadata>[0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$/', $version);
 }
 
-$token             = (string) getenv('GITHUB_TOKEN');
-$keepVersions      = (int) getenv('INPUT_KEEP_VERSIONS') ?: 5;
-$removeSemver      = 'true' === getenv('INPUT_REMOVE_SEMVER');
-$repoNameWithOwner = (string) getenv('GITHUB_REPOSITORY');
+$token             = env('GITHUB_TOKEN');
+$keepVersions      = (int) env('INPUT_KEEP_VERSIONS') ?: 5;
+$removeSemver      = 'true' === env('INPUT_REMOVE_SEMVER');
+$repoNameWithOwner = env('GITHUB_REPOSITORY');
 $clientId          = 'navikt/remove-package-versions';
 
 if (empty($token)) {
@@ -128,6 +140,16 @@ if (empty($packageNodes)) {
 
 $removedPackages = [];
 
+// List of versions to always keep
+$keepVersions = [
+    // Removing this specific version of a Docker package triggers a bug in GitHub
+    // Packages. Keep this safeguard until the bug has been resolved.
+    'docker-base-layer',
+
+    // Do not remove 'latest' version of package
+    'latest',
+];
+
 foreach ($packageNodes as $packageNode) {
     $packageName = $packageNode['name'];
 
@@ -144,18 +166,9 @@ foreach ($packageNodes as $packageNode) {
         $packageVersion         = $versionNodes[$i]['version'];
         $packageNameWithVersion = sprintf('%s:%s', $packageName, $packageVersion);
 
-        if ('docker-base-layer' === $packageVersion) {
-            // Removing this specific version of a Docker package triggers a bug in GitHub
-            // Packages. Keep this safeguard until the bug has been resolved.
+        if (in_array($packageVersion, $keepVersions)) {
             continue;
-        }
-
-        if ('latest' === $packageVersion) {
-            // Do not remove 'latest' version of package
-            continue;
-        }
-
-        if (!$removeSemver && isSemanticVersion($packageVersion)) {
+        } else if (!$removeSemver && isSemanticVersion($packageVersion)) {
             debug(sprintf('[%s] [%s] Semantic versions will not be removed unless remove-semver is set to true', $repoNameWithOwner, $packageNameWithVersion));
             continue;
         }
