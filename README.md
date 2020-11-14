@@ -20,7 +20,9 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```
 
-If you want to run the action periodically instead, use a scheduled action:
+The above example will trigger the action whenever the `push` event occurs. All events that can be used are found in the [GitHub documentation](https://help.github.com/en/actions/automating-your-workflow-with-github-actions/events-that-trigger-workflows).
+
+If you want to run the action periodically instead, use a scheduled workflow:
 
 ```yaml
 name: Remove package versions
@@ -38,9 +40,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```
 
-The above example will trigger the action whenever the `push` event is triggered. All events that can be used are found in the [GitHub documentation](https://help.github.com/en/actions/automating-your-workflow-with-github-actions/events-that-trigger-workflows).
-
-**Note:** The underlying HTTP client does not currently do any pagination which means it has a hard limit on 100 packages, and 100 versions per package when fetching the packages / versions to determine what to remove.
+**Note:** The underlying HTTP client in this action does not currently do any pagination which means it has a hard limit on 100 packages, and 100 versions per package when fetching the packages / versions to determine what to remove.
 
 ## Environment variables
 
@@ -77,3 +77,23 @@ Keep in mind that if you use date-based versions with `.` as a separator, for in
 ## Output
 
 The action outputs a JSON-encoded list of removed package versions prefixed with the owner and the repository name. The name of the output is `removed_package_versions`. Using the `id` from the workflow example above, you can refer to the output using `${{ steps.remove-package-versions.outputs.removed_package_versions }}`.
+
+## Releasing a new version
+
+Use the `release.sh` script to easily tag the `main` branch:
+
+```
+./release.sh v1.2.3
+```
+
+will create three tags, all pointing to `HEAD`:
+
+- `v1`
+- `v1.2`
+- `v1.2.3`
+
+The script will also ask if you want to push the tags. Existing major and/or minor tags will be replaced.
+
+## License
+
+MIT, see [LICENSE](LICENSE).
