@@ -61,6 +61,7 @@ function isSemanticVersion(string $version) : bool {
 
 $token             = env('GITHUB_TOKEN');
 $keepVersions      = (int) env('INPUT_KEEP_VERSIONS') ?: 5;
+$keepLatest        = 'true' === env('INPUT_KEEP_LATEST');
 $removeSemver      = 'true' === env('INPUT_REMOVE_SEMVER');
 $repoNameWithOwner = env('GITHUB_REPOSITORY');
 $clientId          = 'navikt/remove-package-versions';
@@ -141,14 +142,17 @@ if (empty($packageNodes)) {
 $removedPackages = [];
 
 // List of versions to always keep
+
 $keepVersions = [
     // Removing this specific version of a Docker package triggers a bug in GitHub
     // Packages. Keep this safeguard until the bug has been resolved.
-    'docker-base-layer',
-
-    // Do not remove 'latest' version of package
-    'latest',
+    'docker-base-layer'
 ];
+
+if($keepLatest) {
+  // Do not remove 'latest' version of package
+  $keepVersions += ['latest'];  
+}
 
 foreach ($packageNodes as $packageNode) {
     $packageName = $packageNode['name'];

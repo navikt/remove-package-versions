@@ -68,6 +68,10 @@ The action supports the following parameters:
 
 Number of versions to keep per package. Defaults to `5`.
 
+### `keep_latest``
+
+Wheter or not to remove 'latest' package. Defaults to `true`.
+
 ### `remove_semver`
 
 Whether or not to remove [semantic versions](https://semver.org/). Defaults to `false`.

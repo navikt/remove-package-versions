@@ -6,6 +6,10 @@ inputs:
     description: Number of versions to keep
     required: true
     default: "5"
+  keep_latest:
+    description: Wheter or not to remove latest versions
+    required: true
+    default: "true"
   remove_semver:
     description: Whether or not to remove semver versions
     required: true
