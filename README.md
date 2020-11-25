@@ -70,7 +70,7 @@ Number of versions to keep per package. Defaults to `5`.
 
 ### `keep_latest`
 
-Wheter or not to remove 'latest' package. Defaults to `true`.
+Wheter or not to keep the `latest` version. Defaults to `true`.
 
 ### `remove_semver`
 
